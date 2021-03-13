@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2013-2014 The CyanogenMod Project
-     Copyright (C) 2018 The LineageOS Project
+     Copyright (C) 2019-2021 The LineageOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,8 +14,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="call_log_stats_title">Statistics</string>
-
-    <string name="action_menu_helplines">Helplines</string>
+<resources>
+    <dimen name="helpline_primary_text_size">16sp</dimen>
+    <dimen name="helpline_secondary_text_size">12sp</dimen>
 </resources>
