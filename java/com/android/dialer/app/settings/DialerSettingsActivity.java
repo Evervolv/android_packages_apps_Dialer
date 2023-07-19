@@ -30,7 +30,6 @@ import android.telecom.TelecomManager;
 import android.telephony.TelephonyManager;
 import android.view.MenuItem;
 import android.widget.Toast;
-import com.android.dialer.about.AboutPhoneFragment;
 import com.android.dialer.app.R;
 import com.android.dialer.blocking.FilteredNumbersUtil;
 import com.android.dialer.common.LogUtil;
@@ -144,13 +143,6 @@ public class DialerSettingsActivity extends AppCompatPreferenceActivity {
       accessibilitySettingsHeader.intent = accessibilitySettingsIntent;
       target.add(accessibilitySettingsHeader);
     }
-
-    if (showAbout()) {
-      Header aboutPhoneHeader = new Header();
-      aboutPhoneHeader.titleRes = R.string.about_phone_label;
-      aboutPhoneHeader.fragment = AboutPhoneFragment.class.getName();
-      target.add(aboutPhoneHeader);
-    }
   }
 
   private void addVoicemailSettings(List<Header> target, boolean isPrimaryUser) {
@@ -219,11 +211,6 @@ public class DialerSettingsActivity extends AppCompatPreferenceActivity {
       }
     }
     return result;
-  }
-
-  /** Whether "about" should be shown in settings. Override to hide about. */
-  public boolean showAbout() {
-    return true;
   }
 
   /**
