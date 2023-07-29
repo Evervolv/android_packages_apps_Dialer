@@ -43,7 +43,6 @@ import android.provider.Contacts.PhonesColumns;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.FloatingActionButton;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
@@ -152,11 +151,8 @@ public class DialpadFragment extends Fragment
    * device is registered over WFC. Default value is -1, which indicates that this notification is
    * not pertinent for a particular carrier. We've added a delay to prevent false positives."
    */
-  @VisibleForTesting
-  static final String KEY_EMERGENCY_NOTIFICATION_DELAY_INT = "emergency_notification_delay_int";
-
-  private static Optional<String> currentCountryIsoForTesting = Optional.absent();
-  private static Boolean showEmergencyCallWarningForTest = null;
+  private static final String KEY_EMERGENCY_NOTIFICATION_DELAY_INT =
+          "emergency_notification_delay_int";
 
   private final Object toneGeneratorLock = new Object();
   /** Set of dialpad keys that are currently being pressed */
@@ -260,7 +256,6 @@ public class DialpadFragment extends Fragment
    * returns false. Only prevents input of WAIT and PAUSE digits at an unsupported position. Fails
    * early if start == -1 or start is larger than end.
    */
-  @VisibleForTesting
   /* package */ static boolean canAddDigit(CharSequence digits, int start, int end, char newDigit) {
     if (newDigit != WAIT && newDigit != PAUSE) {
       throw new IllegalArgumentException(
@@ -487,11 +482,7 @@ public class DialpadFragment extends Fragment
    * cannot be inflated in robolectric.
    */
   @SuppressWarnings("missingPermission")
-  @VisibleForTesting
   static boolean shouldShowEmergencyCallWarning(Context context) {
-    if (showEmergencyCallWarningForTest != null) {
-      return showEmergencyCallWarningForTest;
-    }
     if (!PermissionsUtil.hasReadPhoneStatePermissions(context)) {
       return false;
     }
@@ -518,11 +509,6 @@ public class DialpadFragment extends Fragment
     }
   }
 
-  @VisibleForTesting
-  static void setShowEmergencyCallWarningForTest(Boolean value) {
-    showEmergencyCallWarningForTest = value;
-  }
-
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
@@ -532,16 +518,7 @@ public class DialpadFragment extends Fragment
   }
 
   private String getCurrentCountryIso() {
-    if (currentCountryIsoForTesting.isPresent()) {
-      return currentCountryIsoForTesting.get();
-    }
-
     return GeoUtil.getCurrentCountryIso(getActivity());
-  }
-
-  @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-  public static void setCurrentCountryIsoForTesting(String countryCode) {
-    currentCountryIsoForTesting = Optional.of(countryCode);
   }
 
   private boolean isLayoutReady() {
@@ -1932,7 +1909,6 @@ public class DialpadFragment extends Fragment
    * formatting for such numbers until libphonenumber is fixed (which will come as early as the next
    * Android release).
    */
-  @VisibleForTesting
   public static class DialerPhoneNumberFormattingTextWatcher
       extends PhoneNumberFormattingTextWatcher {
     private static final Pattern AR_DOMESTIC_CALL_MOBILE_NUMBER_PATTERN;
