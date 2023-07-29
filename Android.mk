@@ -74,6 +74,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 	libbackup \
 	libphonenumber \
 	volley \
+	androidx.annotation_annotation \
 
 LOCAL_STATIC_ANDROID_LIBRARIES := \
 	android-support-core-ui \
