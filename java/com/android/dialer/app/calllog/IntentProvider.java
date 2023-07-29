@@ -31,8 +31,6 @@ import com.android.dialer.callintent.CallInitiationType;
 import com.android.dialer.callintent.CallIntentBuilder;
 import com.android.dialer.dialercontact.DialerContact;
 import com.android.dialer.duo.DuoComponent;
-import com.android.dialer.logging.DialerImpression;
-import com.android.dialer.logging.Logger;
 import com.android.dialer.precall.PreCall;
 import com.android.dialer.util.IntentUtil;
 import java.util.ArrayList;
@@ -104,17 +102,6 @@ public abstract class IntentProvider {
                 .setIsDuoCall(true)
                 .setIsVideoCall(true));
       }
-
-      @Override
-      public void logInteraction(Context context) {
-        Logger.get(context)
-            .logImpression(DialerImpression.Type.LIGHTBRINGER_VIDEO_REQUESTED_FROM_CALL_LOG);
-        if (isNonContact) {
-          Logger.get(context)
-              .logImpression(
-                  DialerImpression.Type.LIGHTBRINGER_NON_CONTACT_VIDEO_REQUESTED_FROM_CALL_LOG);
-        }
-      }
     };
   }
 
@@ -123,11 +110,6 @@ public abstract class IntentProvider {
       @Override
       public Intent getIntent(Context context) {
         return DuoComponent.get(context).getDuo().getInstallDuoIntent().orNull();
-      }
-
-      @Override
-      public void logInteraction(Context context) {
-        Logger.get(context).logImpression(DialerImpression.Type.DUO_CALL_LOG_SET_UP_INSTALL);
       }
     };
   }
@@ -138,11 +120,6 @@ public abstract class IntentProvider {
       public Intent getIntent(Context context) {
         return DuoComponent.get(context).getDuo().getActivateIntent().orNull();
       }
-
-      @Override
-      public void logInteraction(Context context) {
-        Logger.get(context).logImpression(DialerImpression.Type.DUO_CALL_LOG_SET_UP_ACTIVATE);
-      }
     };
   }
 
@@ -151,11 +128,6 @@ public abstract class IntentProvider {
       @Override
       public Intent getIntent(Context context) {
         return DuoComponent.get(context).getDuo().getInviteIntent(number).orNull();
-      }
-
-      @Override
-      public void logInteraction(Context context) {
-        Logger.get(context).logImpression(DialerImpression.Type.DUO_CALL_LOG_INVITE);
       }
     };
   }
@@ -274,6 +246,4 @@ public abstract class IntentProvider {
   }
 
   public abstract Intent getIntent(Context context);
-
-  public void logInteraction(Context context) {}
 }
