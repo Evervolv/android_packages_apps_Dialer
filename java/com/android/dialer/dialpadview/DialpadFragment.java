@@ -76,7 +76,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.contacts.common.dialog.CallSubjectDialog;
-import com.android.contacts.common.util.StopWatch;
 import com.android.dialer.R;
 import com.android.dialer.animation.AnimUtils;
 import com.android.dialer.animation.AnimUtils.AnimationCallback;
@@ -746,13 +745,9 @@ public class DialpadFragment extends Fragment
 
     dialpadQueryListener = FragmentUtils.getParentUnsafe(this, OnDialpadQueryChangedListener.class);
 
-    final StopWatch stopWatch = StopWatch.start("Dialpad.onResume");
-
     // Query the last dialed number. Do it first because hitting
     // the DB is 'slow'. This call is asynchronous.
     queryLastOutgoingCall();
-
-    stopWatch.lap("qloc");
 
     final ContentResolver contentResolver = getActivity().getContentResolver();
 
@@ -760,15 +755,9 @@ public class DialpadFragment extends Fragment
     dTMFToneEnabled =
         Settings.System.getInt(contentResolver, Settings.System.DTMF_TONE_WHEN_DIALING, 1) == 1;
 
-    stopWatch.lap("dtwd");
-
-    stopWatch.lap("hptc");
-
     pressedDialpadKeys.clear();
 
     configureScreenFromIntent(getActivity().getIntent());
-
-    stopWatch.lap("fdin");
 
     if (!isPhoneInUse()) {
       LogUtil.i("DialpadFragment.onResume", "phone not in use");
@@ -776,13 +765,7 @@ public class DialpadFragment extends Fragment
       showDialpadChooser(false);
     }
 
-    stopWatch.lap("hnt");
-
     updateDeleteButtonEnabledState();
-
-    stopWatch.lap("bes");
-
-    stopWatch.stopAndLog(TAG, 50);
 
     // Populate the overflow menu in onResume instead of onCreate, so that if the SMS activity
     // is disabled while Dialer is paused, the "Send a text message" option can be correctly
