@@ -44,8 +44,6 @@ public interface InCallButtonUi {
    */
   void updateButtonStates();
 
-  void updateInCallButtonUiColors(@ColorInt int color);
-
   Fragment getInCallButtonUiFragment();
 
   void showAudioRouteSelector();

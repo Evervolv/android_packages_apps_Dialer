@@ -488,11 +488,6 @@ public class InCallFragment extends Fragment
   }
 
   @Override
-  public void updateInCallButtonUiColors(@ColorInt int color) {
-    inCallButtonGridFragment.updateButtonColor(color);
-  }
-
-  @Override
   public Fragment getInCallButtonUiFragment() {
     return this;
   }
