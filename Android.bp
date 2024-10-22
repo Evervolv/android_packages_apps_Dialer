@@ -9,6 +9,7 @@ package {
 
 android_app {
     name: "Dialer",
+    use_resource_processor: false,
     aaptflags: [
         "--auto-add-overlay",
         "--extra-packages com.android.contacts.common",
