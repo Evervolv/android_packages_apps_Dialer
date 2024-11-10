@@ -33,7 +33,6 @@ public abstract class TransactionSafeActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    DialerUtils.disableEdgeToEdge(getWindow());
     isSafeToCommitTransactions = true;
   }
 
